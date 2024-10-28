@@ -4,27 +4,38 @@
 #include <iostream>
 #include <string>
 /*
-Constructor (Python init) creates an array of n integer where n is the size passed in. If no
+/*Constructor (Python init) creates an array of n integer where n is the size passed in. If no
 size is passed in, or if the size is <1, create an array of 20 items (default constructor). Do
 not initialize the elements of the array unless you are using Python for the assignment. */
 
 
+Deque::Deque(int size){
+    if(size  >= 1){
+        this->size = size; //putting size that's passed in into the size in the class (this);
+
+    }
+    theArray = new int[this->size];
+
+}
+
+Deque::~Deque(){}
+
 /*void addTail(int value) – adds a new value to the tail of the queue, wrapping if necessary. If
         there is no room to add a new value, calls the resize( ) method.*/
-void addTail(int value){}
+void Deque::addTail(int value){}
 
 /*
 • int removeHead( ) – saves the value at the head of the queue, updates it to remove access to
 that value, and returns the saved value, wrapping if necessary. If the queue is empty throws
 an exception. (For C++ and C#, use the message: Array is empty in removeHead)*/
 
-int removeHead(){}
+int Deque::removeHead(){}
 
 /*
 string dumpArray( ) – returns an array containing the contents of the array from index 0 to
         size-1. This is for debugging purposes and to verify that wrapping is working properly.*/
 
-std::string dumpArray(){}
+std::string Deque::dumpArray(){}
 
 /*• resize( ) – creates a new array twice as large and copies the elements to it. This should
 properly deal with situations where there has been wrapping and the tail is at an index less
@@ -49,10 +60,14 @@ void Deque::resize(int newSize) {
 properly deal with situations where there has been wrapping and the tail is at an index less
 than the head.*/
 
-std::string listQueue(){}
+std::string Deque::listQueue(){
+    return "string";
+}
 
 //bool isEmpty() – returns true when the double ended queue is empty, false otherwise.
-bool isEmpty(){};
+bool Deque::isEmpty(){
+    return true;
+};
 
-void solveThink(int *values, int numValues);
+void Deque::solveThink(int *values, int numValues){}
 

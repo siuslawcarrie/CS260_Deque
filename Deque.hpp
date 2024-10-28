@@ -2,22 +2,27 @@
 // Created by siusl on 10/27/2024.
 //
 
-#ifndef CS260_DEQUE_DEQUE_HPP
-#define CS260_DEQUE_DEQUE_HPP
-#ifndef Deque_hpp
+
+#ifndef Deque_hpp//include guard, prevents duplication of source code
 #define Deque_hpp
 
 #include <string>
 #include <stdexcept>
 
+
 class Deque {
 private:
-    const static int SIZE = 10;
-    int size;
+    const static int DEFAULT_SIZE = 20;//size
+    int head = -1;
+    int tail = 0;
+    int *theArray = nullptr;
+    int size = DEFAULT_SIZE;
 
 public:
     // constructor and destructor
-    Deque(int size = SIZE);
+//    Deque();//default constructor but better to have a default argument
+//
+    Deque(int size = -1);
 
     ~Deque();
 
@@ -37,10 +42,12 @@ public:
 //return string listing elements from Head to Tail
     std::string listQueue();
 
+    bool isEmpty();
+
 
     void solveThink(int *values, int numValues);
 
 };
 
 #endif /* Deque_hpp */
-#endif //CS260_DEQUE_DEQUE_HPP
+
