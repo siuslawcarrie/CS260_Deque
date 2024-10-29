@@ -22,20 +22,41 @@ Deque::~Deque(){}
 
 /*void addTail(int value) – adds a new value to the tail of the queue, wrapping if necessary. If
         there is no room to add a new value, calls the resize( ) method.*/
-void Deque::addTail(int value){}
+void Deque::addTail(int value) {
+    if (tail >=size) {
+        tail = 0;
+    }
+    if (head == tail){
+        resize(size * 2);
+    }
+    theArray[tail] = value;
+    tail += 1;
+}
 
 /*
 • int removeHead( ) – saves the value at the head of the queue, updates it to remove access to
 that value, and returns the saved value, wrapping if necessary. If the queue is empty throws
 an exception. (For C++ and C#, use the message: Array is empty in removeHead)*/
 
-int Deque::removeHead(){}
+int Deque::removeHead(){
+if (size - 1 == head){
+    head = -1;
+}
+    if (isEmpty()) {
+        //throw exception
+        throw std::out_of_range("Array is empty");
+    }
+        return theArray[++head];
+    }
+
 
 /*
 string dumpArray( ) – returns an array containing the contents of the array from index 0 to
         size-1. This is for debugging purposes and to verify that wrapping is working properly.*/
 
-std::string Deque::dumpArray(){}
+std::string Deque::dumpArray(){
+    return "string";
+}
 
 /*• resize( ) – creates a new array twice as large and copies the elements to it. This should
 properly deal with situations where there has been wrapping and the tail is at an index less
@@ -66,8 +87,12 @@ std::string Deque::listQueue(){
 
 //bool isEmpty() – returns true when the double ended queue is empty, false otherwise.
 bool Deque::isEmpty(){
-    return true;
-};
+    if (head + 1 == tail) {
+        return true;
+    }
+    return false;
+}
+
 
 void Deque::solveThink(int *values, int numValues){}
 
