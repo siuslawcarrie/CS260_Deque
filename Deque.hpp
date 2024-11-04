@@ -45,6 +45,9 @@ public:
 
     bool isEmpty();
 
+    void addHead(int value);
+
+    int removeTail();
 
     void solveThink(int *values, int numValues);
 

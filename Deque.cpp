@@ -11,23 +11,23 @@ not initialize the elements of the array unless you are using Python for the ass
 
 
 Deque::Deque(int size) {
-    std::string enter;
-    std::cout << "mc Deque:Deque" << std::endl;
-    std::cout << "mc if (size >= 1) {\n"
-                 "        this->size = size;" <<std::endl;
+//    std::string enter;
+//    std::cout << "mc Deque:Deque" << std::endl;
+//    std::cout << "mc if (size >= 1) {\n"
+//                 "        this->size = size;" <<std::endl;
     if (size >= 1) {
         this->size = size; //putting size that's passed in into the size in the class (this);
 
 //        std::cin >> enter;
     }
-    std::cout << "mc theArray = new int[this->size];" << std::endl;
+//    std::cout << "mc theArray = new int[this->size];" << std::endl;
     theArray = new int[this->size];
 //    std::cin >> enter;
 
 }
 
 Deque::~Deque() {
-    std::cout << "mc Deque::~Deque()" << std::endl;
+//    std::cout << "mc Deque::~Deque()" << std::endl;
     std::string enter;
 //    std::cin >> enter;
 }
@@ -36,28 +36,28 @@ Deque::~Deque() {
         there is no room to add a new value, calls the resize( ) method.*/
 void Deque::addTail(int value) {
 //**go through  line by line, does count = size before resize, check in resize, if count = size also
-    std::string enter;
-    std::cout<<" mc addTail"<<std::endl;
-    std::cout << " mc addTail function" << std::endl;
-    std::cout << " mc if (tail >= size) {\n"
-                 "    mc    tail = 0;\n" << std::endl;
+//    std::string enter;
+//    std::cout<<" mc addTail"<<std::endl;
+//    std::cout << " mc addTail function" << std::endl;
+//    std::cout << " mc if (tail >= size) {\n"
+//                 "    mc    tail = 0;\n" << std::endl;
 //    std::cin >> enter;
     if (tail >= size) {
         tail = 0;
     }
-    std::cout << "mc if (isEmpty()) {\n"
-                 "   mc     resize(size * 2);" << std::endl;
+//    std::cout << "mc if (isEmpty()) {\n"
+//                 "   mc     resize(size * 2);" << std::endl;
     if (size == count) {//if size = count, resize
         resize(size * 2);
 
     }
 count = count +1;
 //    std::cin >> enter;
-    std::cout << " mc theArray[tail] = value;\n"
-                 "   mc  tail += 1;" << std::endl;
+//    std::cout << " mc theArray[tail] = value;\n"
+//                 "   mc  tail += 1;" << std::endl;
     theArray[tail] = value;
 //    std::cin >> enter;
-    std::cout << "mc tail += 1;" << std::endl;
+//    std::cout << "mc tail += 1;" << std::endl;
     tail += 1;
 //    std::cin >> enter;
 
@@ -76,14 +76,14 @@ if (size - 1 == head){//this tests if head is at the end
         //throw exception
         throw std::out_of_range("Array is empty");
     } else {
-        std::cout << " mc is Empty function" << std::endl;
-        std::cout << " mc head = (head + 1) % size;" << std::endl;
-        std::string enter;
+//        std::cout << " mc is Empty function" << std::endl;
+//        std::cout << " mc head = (head + 1) % size;" << std::endl;
+//        std::string enter;
         head = head + 1;//increments head - moves it to the right
 //        std::cin >> enter;
-        std::cout << "mc size--" << std::endl;
+//        std::cout << "mc count--" << std::endl;
         count--;
-        std::cout << "mc ++head" << std::endl;
+//
 
 //        std::cin >> enter;
     }
@@ -128,8 +128,15 @@ properly deal with situations where there has been wrapping and the tail is at a
 than the head.*/
 //list elements
 std::string Deque::listQueue() {
-    return "string";
+    std::stringstream ss;
+    int temp = head + 1;
+    for (int i = 0; i < count; i++) {
+        ss << theArray[temp] << " ";
+        temp = (temp + 1) % size;
+    }
+    return ss.str();
 }
+
 
 //bool isEmpty() – returns true when the double ended queue is empty, false otherwise.
 bool Deque::isEmpty() {
@@ -142,16 +149,32 @@ bool Deque::isEmpty() {
 //void addHead(int value) – adds a new value at the head. Wraps if necessary. This should
 //not overwrite data that was previously in the queue. If the array is full, calls resize( ) to
 //double the array and copy the data as needed.
-void addHead(int value) {}
+void Deque::addHead(int value) {
+    if (count == size) {
+        resize(2*size);
+    }
+    head = (head - 1 + size) % size;  // Wrap around if necessary
+    theArray[head +1] = value;
+    count++;
+}
 
 //int removeTail( ) – saves the value at the tail of the queue, updating the queue to remove
 //        access to the item at the tail, and returns the saved value. Wraps if necessary. If the queue
 //        is empty, throws an exception. (For C++ and C#, use the message: Array is empty in
 //removeTail)
 
-int removeTail() {
-    return -1;
+int Deque::removeTail() {
+    int value;
+    if (count == 0) {
+
+        throw std::runtime_error("Array is empty");
+    }
+    tail = (tail - 1 + size) % size;  // Wrap around if necessary
+    value = theArray[tail];
+    count--;
+    return value;
 }
+
 
 
 //        How could you implement a stack using your double ended queue? Use this concept to list a
@@ -161,4 +184,6 @@ int removeTail() {
 //        removes the integers from the new deque in reverse order and adds them to the original deque
 //upon which thinkSolve was called.
 void Deque::solveThink(int *values, int numValues) {}
+
+
 
