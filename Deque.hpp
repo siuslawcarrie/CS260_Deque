@@ -17,6 +17,7 @@ private:
     int tail = 0;
     int *theArray = nullptr;
     int size = DEFAULT_SIZE;
+    int count = 0;
 
 public:
     // constructor and destructor
