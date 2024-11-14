@@ -14,8 +14,8 @@
 //#define LIST_TEST
 //#define ADD_HEAD_TEST
 //#define REMOVE_TAIL_TEST
-//#define REV_QUEUE_TEST
-#define MIX_TEST
+#define REV_QUEUE_TEST
+//#define MIX_TEST
 //#define THINK_TEST
 
 int main() {
@@ -242,74 +242,74 @@ int main() {
 
 #ifdef MIX_TEST
     const int NUM_MIX = 3;
-  Deque mixQueue(NUM_MIX * 2);
-  num = 0;
-  std::cout << "Testing reverse mix of adds and removes\n" << std::endl;
+    Deque mixQueue(NUM_MIX * 2);
+    num = 0;
+    std::cout << "Testing reverse mix of adds and removes\n" << std::endl;
 
-  std::cout << "Adding three odd integers to tail" << std::endl;
-  for (int i = 0; i < NUM_MIX; i++) {
-    mixQueue.addTail(2 * num + 1);
-    num += 1;
-  }
-  std::cout << "Adding three even numbers to head" << std::endl;
-  for (int i = 0; i < NUM_MIX; i++) {
-    mixQueue.addHead(2 * num);
-    num += 1;
-  }
-  std::cout << "Dumping array " << std::endl;
-  std::cout << "Expected 1 3 5 10 8 6" << std::endl;
-  std::cout << "Actually " << mixQueue.dumpArray() << std::endl;
+    std::cout << "Adding three odd integers to tail" << std::endl;
+    for (int i = 0; i < NUM_MIX; i++) {
+        mixQueue.addTail(2 * num + 1);
+        num += 1;
+    }
+    std::cout << "Adding three even numbers to head" << std::endl;
+    for (int i = 0; i < NUM_MIX; i++) {
+        mixQueue.addHead(2 * num);
+        num += 1;
+    }
+    std::cout << "Dumping array " << std::endl;
+    std::cout << "Expected 1 3 5 10 8 6" << std::endl;
+    std::cout << "Actually " << mixQueue.dumpArray() << std::endl;
 
-  std::cout << "\nAdding three more to tail to force resize" << std::endl;
-  for (int i = 0; i < NUM_MIX; i++) {
-    mixQueue.addTail(2 * num + 1);
-    num += 1;
-  }
-  std::cout << "Adding three more to head to fill array" << std::endl;
-  for (int i = 0; i < NUM_MIX; i++) {
-    mixQueue.addHead(2 * num);
-    num += 1;
-  }
-  std::cout << "Dumping array " << std::endl;
-  std::cout << "Expected 10 8 6 1 3 5 13 15 17 22 20 18" << std::endl;
-  std::cout << "Actually " << mixQueue.dumpArray() << std::endl;
+    std::cout << "\nAdding three more to tail to force resize" << std::endl;
+    for (int i = 0; i < NUM_MIX; i++) {
+        mixQueue.addTail(2 * num + 1);
+        num += 1;
+    }
+    std::cout << "Adding three more to head to fill array" << std::endl;
+    for (int i = 0; i < NUM_MIX; i++) {
+        mixQueue.addHead(2 * num);
+        num += 1;
+    }
+    std::cout << "Dumping array " << std::endl;
+    std::cout << "Expected 10 8 6 1 3 5 13 15 17 22 20 18" << std::endl;
+    std::cout << "Actually " << mixQueue.dumpArray() << std::endl;
 
-  std::cout << "\nNow removing from Tail " << std::endl;
-  std::cout << "Expected 17 15 13 5 3 1" << std::endl;
-  std::cout << "Actually ";
-  for (int i = 0; i < NUM_MIX * 2; i++) {
-    std::cout << mixQueue.removeTail() << " ";
-  }
-  std::cout << std::endl;
+    std::cout << "\nNow removing from Tail " << std::endl;
+    std::cout << "Expected 17 15 13 5 3 1" << std::endl;
+    std::cout << "Actually ";
+    for (int i = 0; i < NUM_MIX * 2; i++) {
+        std::cout << mixQueue.removeTail() << " ";
+    }
+    std::cout << std::endl;
 
-  std::cout << "\nNow removing from Head " << std::endl;
-  std::cout << "Expected 22 20 18 10 8 6" << std::endl;
-  std::cout << "Actually ";
-  for (int i = 0; i < NUM_MIX * 2; i++) {
-    std::cout << mixQueue.removeHead() << " ";
-  }
-  std::cout << std::endl;
+    std::cout << "\nNow removing from Head " << std::endl;
+    std::cout << "Expected 22 20 18 10 8 6" << std::endl;
+    std::cout << "Actually ";
+    for (int i = 0; i < NUM_MIX * 2; i++) {
+        std::cout << mixQueue.removeHead() << " ";
+    }
+    std::cout << std::endl;
 
-  std::cout << "\nCalling removeHead from empty FIFO" << std::endl;
-  try {
-    mixQueue.removeHead();
-    std::cout << "Failed to throw exception" << std::endl;
-  } catch (std::out_of_range &ex) {
-    std::cout << "Caught out_of_range with message " << ex.what() << std::endl;
-  } catch (...) {
-    std::cout << "Caught something else " << std::endl;
-  }
-  std::cout << "\nCalling removeTail from empty FIFO" << std::endl;
-  try {
-    mixQueue.removeTail();
-    std::cout << "Failed to throw exception" << std::endl;
-  } catch (std::out_of_range &ex) {
-    std::cout << "Caught out_of_range with message " << ex.what() << std::endl;
-  } catch (...) {
-    std::cout << "Caught something else " << std::endl;
-  }
+    std::cout << "\nCalling removeHead from empty FIFO" << std::endl;
+    try {
+        mixQueue.removeHead();
+        std::cout << "Failed to throw exception" << std::endl;
+    } catch (std::out_of_range &ex) {
+        std::cout << "Caught out_of_range with message " << ex.what() << std::endl;
+    } catch (...) {
+        std::cout << "Caught something else " << std::endl;
+    }
+    std::cout << "\nCalling removeTail from empty FIFO" << std::endl;
+    try {
+        mixQueue.removeTail();
+        std::cout << "Failed to throw exception" << std::endl;
+    } catch (std::out_of_range &ex) {
+        std::cout << "Caught out_of_range with message " << ex.what() << std::endl;
+    } catch (...) {
+        std::cout << "Caught something else " << std::endl;
+    }
 
-  std::cout << "\nDone with mixed tests\n" << std::endl;
+    std::cout << "\nDone with mixed tests\n" << std::endl;
 #endif // MIX_TEST
 
 #ifdef THINK_TEST

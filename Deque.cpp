@@ -108,6 +108,7 @@ std::string Deque::dumpArray() {
         ss << theArray[i] << " ";
     }
     ss << std::endl;
+    std::cout << "end of dumparray" << std::endl;
     return ss.str();
     std::cout << "mc end  of dumpArray" << std::endl;
 
@@ -122,16 +123,17 @@ this.*/
 
 // create new array of newSize and copy to it
 void Deque::resize(int newSize) {
-    std::cout << "mc beginning of resize "<<"newSize: "<<newSize << std::endl;
+    std::cout << "mc beginning of resize " << "newSize: " << newSize << std::endl;
     int *temp = new int[newSize];
-for(int i = 0; i<size; i++) {
-    if (head > size) {
-        head = -1;
+    for (int i = 0; i < size; i++) {
+        if (head > size) {
+            head = -1;
+        }
+        temp[i] = theArray[head + i + 1];
     }
-    temp[i] = theArray[head + i + 1];
-}
     theArray = temp;
     delete[] temp; //delete with brackets deletes entire array; without brackets only deletes first element
+    std::cout<<"mc end of resize"<<std::endl;
 }
 //    temp[i] = removeHead();
 //    i++;
@@ -166,6 +168,7 @@ for(int i = 0; i<size; i++) {
  return;*/
 
 
+
 /*string listQueue( ) –returns a string listing the elements from head to tail. This should
 properly deal with situations where there has been wrapping and the tail is at an index less
 than the head.*/
@@ -192,35 +195,64 @@ bool Deque::isEmpty() {
 //void addHead(int value) – adds a new value at the head. Wraps if necessary. This should
 //not overwrite data that was previously in the queue. If the array is full, calls resize( ) to
 //double the array and copy the data as needed.
-void Deque::addHead(int value) {
-    std::cout << "mc beginning of addHead" << std::endl;
-    std::cout<<"dumparray: "<<dumpArray()<<std::endl;
-
+void Deque::addHead(int value) {//***Dr. Majchrak help & working 11.13
+//    std::cout << "mc beginning of addHead" << std::endl;
+//    std::cout << "dumparray: " << dumpArray() << std::endl;
+int location;
     if (count == size) {
         resize(2 * size);
+        head = size - 1;//review this, why -1?
     }
-    head = (head - 1 + size) % size;  // Wrap around if necessary
-    theArray[head + 1] = value;
+    if (head == (size - 1)){
+      location = -1;
+    }
+    else{
+        location = head;//if head is not at end of array
+    }
+    theArray[location + 1] = value;//if head is at size - 1 (end of array), does not move head, pulls next value from [0]
+    head = (head - 1 + size) % size;
+
     count++;
-    std::cout << "mc end  of addHead" << std::endl;
-}
+
+//    std::cout<<"mc end of addHead"<<std::endl;
+    }
+
+
 
 //int removeTail( ) – saves the value at the tail of the queue, updating the queue to remove
 //        access to the item at the tail, and returns the saved value. Wraps if necessary. If the queue
 //        is empty, throws an exception. (For C++ and C#, use the message: Array is empty in
 //removeTail)
 
-int Deque::removeTail() {
+int Deque::removeTail() {//***WORKING PER REMOVETAIL TEST
+    //remove tail & add head both move to the left, MOVE FIRST then look.
+    //remove head, add tail move to the right, LOOK FIRST, then move
     std::cout << "mc beginning of removeTail" << std::endl;
     int value;
-    if (count == 0) {
-
+    if (isEmpty()) {
         throw std::runtime_error("Array is empty");
     }
-    tail = (tail - 1 + size) % size;  // Wrap around if necessary
+    if (tail < 0) {// Wrap around if necessary
+        tail = size;
+    }
+    tail -= 1;
     value = theArray[tail];
     count--;
+    std::cout << "end of remove Tail" << std::endl;
     return value;
+std::cout<<"dump array in removeTail = "<<dumpArray()<<std::endl;
+std::cout<<"tail=" <<tail<<std::endl;
+    if (isEmpty()) {
+        throw std::runtime_error("Array is empty");
+    }
+
+    // Circular array wrap around:
+//    int value = theArray[tail];
+//    tail = (tail - 1 + size) % size;
+
+    count--;
+    return value;
+
     std::cout << "mc end  of removeTail" << std::endl;
 }
 
