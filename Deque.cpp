@@ -131,7 +131,8 @@ void Deque::resize(int newSize) {
         }
         temp[i] = theArray[head + i + 1];
     }
-    theArray = temp;
+    delete[] theArray; //deallocates the memory that the array pointer is pointing to
+    theArray = temp; //reassigns the pointer to what temp is pointing to
     delete[] temp; //delete with brackets deletes entire array; without brackets only deletes first element
     std::cout<<"mc end of resize"<<std::endl;
 }
@@ -227,7 +228,7 @@ int location;
 int Deque::removeTail() {//***WORKING PER REMOVETAIL TEST
     //remove tail & add head both move to the left, MOVE FIRST then look.
     //remove head, add tail move to the right, LOOK FIRST, then move
-    std::cout << "mc beginning of removeTail" << std::endl;
+//    std::cout << "mc beginning of removeTail" << std::endl;
     int value;
     if (isEmpty()) {
         throw std::runtime_error("Array is empty");
@@ -238,7 +239,7 @@ int Deque::removeTail() {//***WORKING PER REMOVETAIL TEST
     tail -= 1;
     value = theArray[tail];
     count--;
-    std::cout << "end of remove Tail" << std::endl;
+//    std::cout << "end of remove Tail" << std::endl;
     return value;
 std::cout<<"dump array in removeTail = "<<dumpArray()<<std::endl;
 std::cout<<"tail=" <<tail<<std::endl;
