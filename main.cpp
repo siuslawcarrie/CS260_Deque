@@ -14,8 +14,8 @@
 //#define LIST_TEST
 //#define ADD_HEAD_TEST
 //#define REMOVE_TAIL_TEST
-#define REV_QUEUE_TEST
-//#define MIX_TEST
+//#define REV_QUEUE_TEST
+#define MIX_TEST
 //#define THINK_TEST
 
 int main() {
