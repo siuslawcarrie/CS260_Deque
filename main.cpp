@@ -284,6 +284,7 @@ int main() {
 
     std::cout << "\nNow removing from Head " << std::endl;
     std::cout << "Expected 22 20 18 10 8 6" << std::endl;
+    std::cout<<"mc dump array"<<mixQueue.dumpArray()<<std::endl;
     std::cout << "Actually ";
     for (int i = 0; i < NUM_MIX * 2; i++) {
         std::cout << mixQueue.removeHead() << " ";

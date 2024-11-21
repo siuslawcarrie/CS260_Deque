@@ -51,14 +51,14 @@ void Deque::addHead(int value) {//***Dr. Majchrak help & working 11.18
     if (head == -1) {
 //        location = 7;//dr M
 //location = size; //jacob
-head = size;
+        head = size;
     } /*else {
         location = head;//if head is not at end of array
     }*///jacob change
 //    theArray[location] = value;//if head is at size - 1 (end of array), does not move head, pulls next value from [0]
 //    head = (head - 1 + size) % //jacob size;//jacob change
     head--;//jacob, moved above theArray[head
-theArray[head] = value;
+    theArray[head] = value;
 
     count++;
 //    std::cout<<"mc end of addHead, stats: "<<std::endl;
@@ -69,36 +69,40 @@ theArray[head] = value;
 
 /*
 • int removeHead( ) – saves the value at the head of the queue, updates it to remove access to
-that value, and returns the saved value, wrapping if necessary. If the queue is empty throws
+that value, and ZEthe saved value, wrapping if necessary. If the queue is empty throws
 an exception. (For C++ and C#, use the message: Array is empty in removeHead)*/
 
-int Deque::removeHead() {
+int Deque::removeHead() {//****WHERE TO PUT HEAD AFTER RESIze & when to wrap
 //    std::cout << "mc beginning of removeHead, stats:" << std::endl;
 //    std::cout << "Size: " << size << std::endl;
 //    std::cout << "Head: " << head << std::endl;
 //    std::cout << "count: " << count << "end stats" << std::endl;
-    if (size - 1 == head) {//this tests if head is at the end
-        head = -1;//only resets head if at the end, this wraps head
+
+    if (head >= size) {//this tests if head is at the end
+        head = 0;//only resets head if at the end, this wraps head
+//        return theArray[head];
     }
-    if (isEmpty()) {
-        //throw exception
-        throw std::out_of_range("Array is empty");
-    } else {
+        if (isEmpty()) {
+            //throw exception+
+
+            throw std::out_of_range("Array is empty");
+        }
+//    head = (head + 1 + size) % size;
+        int value = theArray[head];
+        count--;
+        head++;
 //        std::cout << " mc is Empty function" << std::endl;
 //        std::cout << " mc head = (head + 1) % size;" << std::endl;
 //        std::string enter;
-        head = head + 1;//increments head - moves it to the right
+//        head = head + 1;//increments head - moves it to the right
 //        std::cin >> enter;
 //        std::cout << "mc count--" << std::endl;
-        count--;
-//
-    }
+//        count--;
 //    std::cout << "end of removeHead, stats: " << std::endl;
 //    std::cout << "Size: " << size << std::endl;
 //    std::cout << "Head: " << head << std::endl;
 //    std::cout << "count: " << count << "end stats" << std::endl;
-
-    return theArray[head];//returns value of head
+        return value;//returns value of head
 
 }
 
@@ -178,15 +182,15 @@ void Deque::resize(int newSize) {
     // Copy elements from old array to new array, handling wrapping
     int index = head;
     for (int i = 0; i < count; i++) {
-        index = (index + 1) % size; // Move to the next element (with wrapping)
         temp[i] = theArray[index];
+        index = (index + 1) % size; // Move to the next element (with wrapping)
     }
 
     delete[] theArray;
     theArray = temp;
 
     // Update head and tail for the new array
-    head = newSize; // Head is at the last index of the new array
+    head = -1; // Head is at the last index of the new array
     tail = count;       // Tail is at the index after the last copied element
 
     size = newSize;
