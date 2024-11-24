@@ -143,29 +143,44 @@ void Deque::addTail(int value) {
 //        is empty, throws an exception. (For C++ and C#, use the message: Array is empty in
 //removeTail)
 
-int Deque::removeTail() {//***WORKING PER REMOVETAIL TEST
+int Deque::removeTail(){//***WORKING PER REMOVETAIL TEST
     //remove tail & add head both move to the left, MOVE FIRST then look.
     //remove head, add tail move to the right, LOOK FIRST, then move
-    {
+    int value;
+
 //        std::cout << "mc beginning of removeTail, stats: " << std::endl;
 //        std::cout << "Size: " << size << std::endl;
 //        std::cout << "Tail: " << tail << std::endl;
-//        std::cout << "count: " << count << "end stats" << std::endl;
-        if (isEmpty()) {
-            throw std::runtime_error("Array is empty");
-        }
-
-
-        tail = (tail - 1 + size) % size;
-        int value = theArray[tail];
-        count--;
-
-//        std::cout << "end of remove Tail, stats: " << std::endl;
-//        std::cout << "Size: " << size << std::endl;
-//        std::cout << "Tail: " << tail << std::endl;
-//        std::cout << "count: " << count << "end stats" << std::endl;
-        return value;
+//        std::cout << "count: " << count << "end stats " << std::endl;
+    if (isEmpty()) {
+        throw std::out_of_range("Array is empty");
     }
+
+
+//        tail = (tail - 1 + size) % size;
+//        int value = theArray[tail];
+//        count--;
+
+
+
+
+  if (tail == -1) {
+
+tail = size - 1;
+} /*else {
+        location = head;//if head is not at end of array
+    }*///jacob change
+//    theArray[location] = value;//if head is at size - 1 (end of array), does not move head, pulls next value from [0]
+//    head = (head - 1 + size) % //jacob size;//jacob change
+tail--;
+value = theArray[tail];
+
+count--;
+//    std::cout << "end of remove Tail, stats: " << std::endl;
+//    std::cout << "Size: " << size << std::endl;
+//    std::cout << "Tail: " << tail << std::endl;
+//    std::cout << "count: " << count << "end stats " << std::endl;
+return value;
 }
 /*• resize( ) – creates a new array twice as large and copies the elements to it. This should
 properly deal with situations where there has been wrapping and the tail is at an index less
@@ -278,18 +293,16 @@ bool Deque::isEmpty() {
 //        removes the integers from the new deque in reverse order and adds them to the original deque
 //upon which thinkSolve was called.
 void Deque::solveThink(int *values, int numValues) {
-//    int stackDeque(numValues);  // Create a new deque to act as a stack
-//
-//    // Add elements to the stackDeque in their original order (using addTail to simulate push)
-//    for (int i = 0; i < numValues; ++i) {
-//        stackDeque.addTail(values[i]);
-//    }
-//
-//    // Remove elements from the stackDeque in reverse order (using removeHead to simulate pop)
-//    // and add them to the current deque (using addTail)
-//    for (int i = 0; i < numValues; ++i) {
-//        this->addTail(stackDeque.removeHead());
-//    }
-//}
-};
+    Deque stackDeque(numValues);  // Create a new deque to act as a stack
 
+    // Add elements to the stackDeque in their original order (using addTail to simulate push)
+    for (int i = 0; i < numValues; ++i) {
+        stackDeque.addHead(values[i]);
+    }
+
+    // Remove elements from the stackDeque in reverse order (using removeHead to simulate pop)
+    // and add them to the current deque (using addTail)
+    for (int i = 0; i < numValues; i++) {
+        this->addTail(stackDeque.removeHead());
+    }
+}
