@@ -57,9 +57,9 @@ void Deque::addHead(int value) {//***Dr. Majchrak help & working 11.18
     }*///jacob change
 //    theArray[location] = value;//if head is at size - 1 (end of array), does not move head, pulls next value from [0]
 //    head = (head - 1 + size) % //jacob size;//jacob change
-    head--;//jacob, moved above theArray[head
-    theArray[head] = value;
 
+    theArray[head] = value;
+    head--;//jacob, moved above theArray[head
     count++;
 //    std::cout<<"mc end of addHead, stats: "<<std::endl;
 //    std::cout << "Size: " << size << std::endl;
@@ -79,18 +79,21 @@ int Deque::removeHead() {//****WHERE TO PUT HEAD AFTER RESIze & when to wrap
 //    std::cout << "count: " << count << "end stats" << std::endl;
 
     if (head >= size) {//this tests if head is at the end
-        head = 0;//only resets head if at the end, this wraps head
+        head = -1;//only resets head if at the end, this wraps head
 //        return theArray[head];
     }
-        if (isEmpty()) {
-            //throw exception+
+    if (isEmpty()) {
+        //throw exception+
 
-            throw std::out_of_range("Array is empty");
-        }
+        throw std::out_of_range("Array is empty");
+    }
 //    head = (head + 1 + size) % size;
-        int value = theArray[head];
-        count--;
-        head++;
+    int value = theArray[head+1];
+//    std::cout<<"Head in value = theArray[head] "<<head<<std::endl;
+//    std::cout<<"Value: "<<std::endl;
+    count--;
+    head++;
+//    std::cout<<"Head after head++ "<<head<<std::endl;
 //        std::cout << " mc is Empty function" << std::endl;
 //        std::cout << " mc head = (head + 1) % size;" << std::endl;
 //        std::string enter;
@@ -102,7 +105,7 @@ int Deque::removeHead() {//****WHERE TO PUT HEAD AFTER RESIze & when to wrap
 //    std::cout << "Size: " << size << std::endl;
 //    std::cout << "Head: " << head << std::endl;
 //    std::cout << "count: " << count << "end stats" << std::endl;
-        return value;//returns value of head
+    return value;//returns value of head
 
 }
 
@@ -113,18 +116,20 @@ void Deque::addTail(int value) {
 //    std::cout << "mc beginning of addTail" << std::endl;
 //    std::cout << "Size: " << size << std::endl;
 //    std::cout << "Tail: " << tail << std::endl;
-//    std::cout << "count: " << count << std::endl;
+//    std::cout<<"Value: "<<value<<std::endl;
+//    std::cout<<"Head: "<<head<<std::endl;
+//    std::cout << "count: " << count << std::endl<<std::endl;
 
     if (tail >= size) {
         tail = 0;
     }
 //    std::cout << "mc if (isEmpty()) {\n"
 //                 "   mc     resize(size * 2);" << std::endl;
-    if (size == count) {//if size = count, resize
+    if (count == size) {//if size = count, resize
         resize(size * 2);
 
     }
-    count = count + 1;
+
 //    std::cin >> enter;
 //    std::cout << " mc theArray[tail] = value;\n"
 //                 "   mc  tail += 1;" << std::endl;
@@ -132,10 +137,12 @@ void Deque::addTail(int value) {
 //    std::cin >> enter;
 //    std::cout << "mc tail += 1;" << std::endl;
     tail += 1;
+    count = count + 1;
 //    std::cout << "end of addTail, stats:" << std::endl;
 //    std::cout << "Size: " << size << std::endl;
 //    std::cout << "Tail: " << tail << std::endl;
-//    std::cout << "count: " << count << "end stats" << std::endl;
+//    std::cout<<"Value: "<<value<<std::endl;
+//    std::cout << "count: " << count << "end stats " << std::endl<<std::endl;
 }
 
 //int removeTail( ) – saves the value at the tail of the queue, updating the queue to remove
@@ -164,23 +171,23 @@ int Deque::removeTail(){//***WORKING PER REMOVETAIL TEST
 
 
 
-  if (tail == -1) {
+    if (tail == -1) {
 
-tail = size - 1;
-} /*else {
+        tail = size - 1;
+    } /*else {
         location = head;//if head is not at end of array
     }*///jacob change
 //    theArray[location] = value;//if head is at size - 1 (end of array), does not move head, pulls next value from [0]
 //    head = (head - 1 + size) % //jacob size;//jacob change
-tail--;
-value = theArray[tail];
+    tail--;
+    value = theArray[tail];
 
-count--;
+    count--;
 //    std::cout << "end of remove Tail, stats: " << std::endl;
 //    std::cout << "Size: " << size << std::endl;
 //    std::cout << "Tail: " << tail << std::endl;
 //    std::cout << "count: " << count << "end stats " << std::endl;
-return value;
+    return value;
 }
 /*• resize( ) – creates a new array twice as large and copies the elements to it. This should
 properly deal with situations where there has been wrapping and the tail is at an index less
@@ -263,12 +270,20 @@ std::string Deque::dumpArray() {
 //    std::cout << "size: " << size << std::endl;
 //    std::cout << "count: " << count << std::endl;
 //    std::cout << "head: " << head << std::endl;
-//    std::cout << "tail: " << tail << std::endl;
+//    std::cout << "tail: " << tail << std::endl<<std::endl;
+    head +=1;
 
     std::stringstream ss;
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i <= size -1; i++) {
         ss << theArray[i] << " ";
+//        std::cout<<"inside for loop for theArray"<<std::endl;
+//        std::cout<<"index: "<<i<<std::endl;
+//        std::cout<<"ss: "<<ss.str()<<std::endl;
+//        std::cout<<"Head in dumparray"<<head<<std::endl;
+//        std::cout<<"tail in dumparray: "<<tail<<std::endl;
+//        std::cout<<"end of for loop for theArray"<<std::endl<<std::endl;
     }
+
     ss << std::endl;
 //    std::cout << "end of dumparray, stats:" << std::endl;
 //    std::cout << "size: " << size << std::endl;
@@ -305,4 +320,6 @@ void Deque::solveThink(int *values, int numValues) {
     for (int i = 0; i < numValues; i++) {
         this->addTail(stackDeque.removeHead());
     }
-}
+}//
+// Created by siusl on 11/29/2024.
+//

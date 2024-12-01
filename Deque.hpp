@@ -1,10 +1,13 @@
 //
+// Created by siusl on 11/29/2024.
+//
+
+#ifndef CS260_DEQUE_DEQUE_HPP
+#define CS260_DEQUE_DEQUE_HPP
+//
 // Created by siusl on 10/27/2024.
 //
 
-
-#ifndef Deque_hpp//include guard, prevents duplication of source code
-#define Deque_hpp
 
 #include <string>
 #include <stdexcept>
@@ -53,5 +56,5 @@ public:
 
 };
 
-#endif /* Deque_hpp */
 
+#endif //CS260_DEQUE_DEQUE_HPP
